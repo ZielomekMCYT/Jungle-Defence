@@ -1717,7 +1717,7 @@ document.querySelectorAll('#pfth button').forEach(b=>b.onclick=()=>{cfg.th=+b.da
 
 /* ===== v17.6 – tabela wyników ===== */
 /* Adres Firebase Realtime Database, np. 'https://twoj-projekt-default-rtdb.europe-west1.firebasedatabase.app' (zostaw '' = tabela tylko lokalna) */
-const LB_URL='';
+const LB_URL='https://topka-rund-default-rtdb.europe-west1.firebasedatabase.app/';
 const LBU=LB_URL.replace(/\/+$/,'');
 let PID='';try{PID=localStorage.getItem('jd_pid')||'';if(!PID){PID='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,9);localStorage.setItem('jd_pid',PID)}}catch(e){PID='p'+Math.random().toString(36).slice(2,11)}
 cfg.best=0;try{cfg.best=+localStorage.getItem('jd_best')||0}catch(e){}
