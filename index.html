@@ -1784,7 +1784,9 @@ document.querySelectorAll('#pfth button').forEach(b=>b.onclick=()=>{cfg.th=+b.da
 /* ===== v17.6 – tabela wyników ===== */
 /* Adres Firebase Realtime Database, np. 'https://twoj-projekt-default-rtdb.europe-west1.firebasedatabase.app' (zostaw '' = tabela tylko lokalna) */
 const LB_URL='';
-const LBU=LB_URL.replace(/\/+$/,'');
+let LBU=LB_URL.replace(/\/+$/,'');
+if(!LBU){try{LBU=(localStorage.getItem('jd_lb')||'').replace(/\/+$/,'')}catch(e){}}
+try{fetch('lb.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.u){const u=String(j.u).replace(/\/+$/,'');if(u&&u!==LBU){LBU=u;try{localStorage.setItem('jd_lb',u)}catch(e){}}try{lbDeb()}catch(e){}}}).catch(()=>{})}catch(e){}
 let PID='';try{PID=localStorage.getItem('jd_pid')||'';if(!PID){PID='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,9);localStorage.setItem('jd_pid',PID)}}catch(e){PID='p'+Math.random().toString(36).slice(2,11)}
 cfg.best=0;try{cfg.best=+localStorage.getItem('jd_best')||0}catch(e){}
 function lbSubmit(){if(!LBU||cfg.best<=0)return Promise.resolve();return fetch(LBU+'/scores/'+PID+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({n:(uNm||'Gracz').slice(0,14),r:cfg.best,a:pfCur(),t:Date.now()})}).catch(()=>{})}
